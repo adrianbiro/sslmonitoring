@@ -4,11 +4,11 @@ import (
 	"crypto/tls"
 	"crypto/x509"
 	"encoding/json"
+	"flag"
 	"fmt"
 	"math"
 	"net"
 	"os"
-	"strings"
 	"time"
 )
 
@@ -66,18 +66,28 @@ func (cert *Cert) Tojason() string {
 	b, _ := json.Marshal(cert)
 	return string(b)
 }
+
 func main() {
 	var (
 		port string = ":443"
 		iad  string
 		url  string
+		jobj map[string]interface{}
 	)
-	if len(os.Args) > 1 {
-		url = strings.Join(os.Args[1:], "")
-	} else {
-		fmt.Printf("Usage:\v%s <example.com>\n", os.Args[0])
+
+	fullJson := flag.Bool("all", false, "Get full json string.")
+	flag.Parse()
+	if flag.NArg() == 0 {
+		flag.Usage()
 		os.Exit(1)
+
 	}
+
+	url = flag.Arg(0) // TODO make all flag works and fix ordering for all flags
+	//boo := flag.Args()
+	//	fmt.Println(boo)
+	//os.Exit(1)
+
 	iad = fmt.Sprintf("%v%v%v", "www.", url, port)
 
 	raw, err := ParseCert(iad, 10)
@@ -85,6 +95,14 @@ func main() {
 		fmt.Println(err)
 		os.Exit(1)
 	}
-	fmt.Println(raw.Tojason())
+	all := raw.Tojason()
+
+	if *fullJson {
+		fmt.Println(all)
+		os.Exit(0)
+
+	}
+	json.Unmarshal([]byte(all), &jobj)
+	fmt.Println(jobj["expiration_days"])
 
 }
