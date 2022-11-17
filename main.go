@@ -8,6 +8,7 @@ import (
 	"math"
 	"net"
 	"os"
+	"strings"
 	"time"
 )
 
@@ -69,12 +70,15 @@ func main() {
 	var (
 		port string = ":443"
 		iad  string
-		//url  string
+		url  string
 	)
-	iad = fmt.Sprintf("%v%v%v", "www.", "google.com", port)
-	//if len(os.Args) > 1 {
-	//	iad = os.Args[1:]
-	//}
+	if len(os.Args) > 1 {
+		url = strings.Join(os.Args[1:], "")
+	} else {
+		fmt.Printf("Usage:\v%s <example.com>\n", os.Args[0])
+		os.Exit(1)
+	}
+	iad = fmt.Sprintf("%v%v%v", "www.", url, port)
 
 	raw, err := ParseCert(iad, 10)
 	if err != nil {
