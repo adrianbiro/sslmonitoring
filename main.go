@@ -25,7 +25,7 @@ type Cert struct {
 	ExpireAfterDays    float64   `json:"expiration_days"`
 }
 
-// VerCertChains verify certifivate
+// VerCertChains verify certificate
 func VerCertChains(addr string, timeoutSecond time.Duration) ([][]*x509.Certificate, error) {
 	conn, err := tls.DialWithDialer(&net.Dialer{Timeout: timeoutSecond * time.Second}, "tcp", addr, nil)
 	if err != nil {
