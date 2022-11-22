@@ -12,6 +12,7 @@ import (
 	"time"
 )
 
+// Cert json result
 type Cert struct {
 	CommonName         string    `json:"cn"`
 	NotAfter           time.Time `json:"not_after"`
@@ -24,6 +25,7 @@ type Cert struct {
 	ExpireAfterDays    float64   `json:"expiration_days"`
 }
 
+// VerCertChains verify certificate
 func VerCertChains(addr string, timeoutSecond time.Duration) ([][]*x509.Certificate, error) {
 	conn, err := tls.DialWithDialer(&net.Dialer{Timeout: timeoutSecond * time.Second}, "tcp", addr, nil)
 	if err != nil {
@@ -35,6 +37,7 @@ func VerCertChains(addr string, timeoutSecond time.Duration) ([][]*x509.Certific
 	return chains, nil
 }
 
+// ParseCert from address and return Cert struct
 func ParseCert(addr string, timeoutSecond int) (*Cert, error) {
 	chains, err := VerCertChains(addr, time.Duration(timeoutSecond))
 	if err != nil {
@@ -62,7 +65,8 @@ func ParseCert(addr string, timeoutSecond int) (*Cert, error) {
 	return cert, err
 }
 
-func (cert *Cert) Tojason() string {
+// Tojson marshal struct to json
+func (cert *Cert) Tojson() string {
 	b, _ := json.Marshal(cert)
 	return string(b)
 }
@@ -75,7 +79,7 @@ func main() {
 		jobj map[string]interface{}
 	)
 
-	fullJson := flag.Bool("all", false, "Get full json string.")
+	fullJSON := flag.Bool("all", false, "Get full json string.")
 	flag.Parse()
 	if flag.NArg() == 0 {
 		flag.Usage()
@@ -95,9 +99,9 @@ func main() {
 		fmt.Println(err)
 		os.Exit(1)
 	}
-	all := raw.Tojason()
+	all := raw.Tojson()
 
-	if *fullJson {
+	if *fullJSON {
 		fmt.Println(all)
 		os.Exit(0)
 
