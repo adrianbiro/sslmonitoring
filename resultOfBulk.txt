@@ -1,0 +1,47 @@
+theorb.com.my: 248
+theorb.global: x509: certificate has expired or is not yet valid: current time 2022-12-08T11:16:21+01:00 is after 2022-12-08T09:20:43Z
+theorb.eu: x509: certificate has expired or is not yet valid: current time 2022-12-08T11:16:21+01:00 is after 2022-12-08T09:20:43Z
+theorbworld.com: x509: certificate has expired or is not yet valid: current time 2022-12-08T11:16:21+01:00 is after 2022-12-08T09:20:43Z
+teslaunion.eu.com: 79
+teslaunion.eu: 79
+royalcapitalclub.com: 79
+royalcc.club: 79
+royalcc.app: 79
+royal.digital: 84
+rifk.com.my: 79
+rifkroyalfund.com: 79
+rifkfund.com: 79
+rifk.fund: 79
+rifk.eu: 79
+rif.fund: 74
+ribsk.eu: 80
+rib.sk: 80
+ribk.com.my: 79
+ribkroyalbank.com: 79
+ribkbank.com: 79
+ribk.eu: 79
+regiafonte.com: 79
+icwaste.management: dial tcp: lookup www.icwaste.management on 172.25.112.1:53: no such host
+icif.fund: 74
+icinvestfund.com: 74
+ic.management: 31
+ic.finance: 31
+ic.consulting: 31
+ic.investments: 31
+ic.exchange: 31
+chateauprotivin.com: 81
+chateautheorb.com: 81
+theorb.cz: 81
+homesteadprotivin.com: 31
+podzamciprotivin.cz: 31
+dcapital.eu: 70
+aquaregia.group: 80
+abspayment.com: 146
+abspayment.eu: x509: certificate is valid for icdev.eu, not www.abspayment.eu
+abspay.eu: remote error: tls: internal error
+abs.broker: x509: certificate is valid for icdev.eu, not www.abs.broker
+abs.credit: x509: certificate is valid for icdev.eu, not www.abs.credit
+abs.exchange: x509: certificate is valid for icdev.eu, not www.abs.exchange
+abs.house: x509: certificate is valid for icdev.eu, not www.abs.house
+abs.loans: x509: certificate is valid for icdev.eu, not www.abs.loans
+e-abs.money: x509: certificate is valid for icdev.eu, not www.e-abs.money
