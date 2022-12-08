@@ -75,19 +75,20 @@ func main() {
 		jobj map[string]interface{}
 	)
 
-	fullJson := flag.Bool("all", false, "Get full json string.")
+	fullJson := flag.Bool("json", false, "Get full cert info in JSON string.")
+	flag.Usage = func() {
+		w := flag.CommandLine.Output()
+		fmt.Fprintf(w, "Usage:\n\t%s [flags] <example.com>\n", os.Args[0])
+		flag.PrintDefaults()
+		fmt.Fprintf(w, "\n")
+	}
 	flag.Parse()
 	if flag.NArg() == 0 {
 		flag.Usage()
 		os.Exit(1)
-
 	}
 
-	url = flag.Arg(0) // TODO make all flag works and fix ordering for all flags
-	//boo := flag.Args()
-	//	fmt.Println(boo)
-	//os.Exit(1)
-
+	url = flag.Arg(0)
 	iad = fmt.Sprintf("%v%v%v", "www.", url, port)
 
 	raw, err := ParseCert(iad, 10)
@@ -100,7 +101,6 @@ func main() {
 	if *fullJson {
 		fmt.Println(all)
 		os.Exit(0)
-
 	}
 	json.Unmarshal([]byte(all), &jobj)
 	fmt.Println(jobj["expiration_days"])
