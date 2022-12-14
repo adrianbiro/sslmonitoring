@@ -13,7 +13,7 @@ import (
 )
 
 type Cert struct {
-	CommonName         string    `json:"cn"`
+	CommonName         string    `json:"common_name"`
 	NotAfter           time.Time `json:"not_after"`
 	NotBefore          time.Time `json:"not_before"`
 	DNSNames           []string  `json:"dns_names"`
@@ -24,10 +24,12 @@ type Cert struct {
 	ExpireAfterDays    float64   `json:"expiration_days"`
 }
 
+// VerCertChains TODO error x509: certificate is valid for icdev.eu, not www.abspayment.eu return cert info
 func VerCertChains(addr string, timeoutSecond time.Duration) ([][]*x509.Certificate, error) {
 	conn, err := tls.DialWithDialer(&net.Dialer{Timeout: timeoutSecond * time.Second}, "tcp", addr, nil)
 	if err != nil {
 		return nil, err
+		//fmt.Println(err)
 	}
 	defer conn.Close()
 
