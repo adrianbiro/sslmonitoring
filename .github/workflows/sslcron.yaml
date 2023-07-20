@@ -27,7 +27,7 @@ jobs:
           function _format(){
             awk 'int($2) < 15{printf "**%s**\n", $0; next}int($2) < 30{printf "*%s*\n", $0; next}{print}'
           }
-          while read -r h; do echo "${h}"; done < hostnames.txt | sort -k2 -n | _format
+          cat hostnames.txt | while read -r h; do echo "${h}"; done | sort -k2 -n | _format
 
           #while read -r h; do _daysleft "${h}"; done < hostnames.txt | sort -k2 -n | _format
           
