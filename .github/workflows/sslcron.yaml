@@ -28,7 +28,7 @@ jobs:
             awk 'int($2) < 15{printf "**%s**\n", $0; next}int($2) < 30{printf "*%s*\n", $0; next}{print}'
           }
           #cat hostnames.txt | while read -r h; do _daysleft "${h}"; done | sort -k2 -n 
-          for h in "$(tr -d '\n' < hostnames.txt); do do _daysleft "${h}"; done | sort -k2 -n 
+          for h in "$(tr -d '\n' < hostnames.txt)"; do do _daysleft "${h}"; done | sort -k2 -n 
 
           #while read -r h; do _daysleft "${h}"; done < hostnames.txt | sort -k2 -n | _format
           
