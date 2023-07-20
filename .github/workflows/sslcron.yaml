@@ -9,7 +9,7 @@ env:
 jobs:
   push:
     runs-on: ubuntu-latest
-    permissions:.
+    permissions:
       contents: write
     steps:
       - name: Check out repository code
