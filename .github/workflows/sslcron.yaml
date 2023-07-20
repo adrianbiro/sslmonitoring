@@ -22,12 +22,12 @@ jobs:
             ssldate=$(date -d "${data}" '+%s');
             nowdate=$(date '+%s');
             diff="$((ssldate - nowdate))";
-            echo "$hostname $((diff / 86400))"
+            echo "$hostname $((diff / 86400))" | awk 'int($2) < 15{printf "**%s**\n", $0; next}int($2) < 30{printf "*%s*\n", $0; next}{print}'
           }
           function _format(){
             awk 'int($2) < 15{printf "**%s**\n", $0; next}int($2) < 30{printf "*%s*\n", $0; next}{print}'
           }
-          cat hostnames.txt | while read -r h; do _daysleft "${h}"; done | sort -k2 -n | _format
+          cat hostnames.txt | while read -r h; do _daysleft "${h}"; done | sort -k2 -n 
 
           #while read -r h; do _daysleft "${h}"; done < hostnames.txt | sort -k2 -n | _format
           
