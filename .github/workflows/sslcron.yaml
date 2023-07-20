@@ -1,0 +1,47 @@
+name: SSL
+on:
+  workflow_dispatch:
+
+env:
+  filename: "index.md"
+  contentdir: "content" 
+
+jobs:
+  push:
+    runs-on: ubuntu-latest
+    permissions:.
+      contents: write
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 1
+      - name: "SSL"
+        shell: bash
+        run: |
+          hostname="google.coom"
+          data=$(echo \
+            | openssl s_client -servername "${hostname}" -connect "${hostname}":443 2>/dev/null \
+            | openssl x509 -noout -enddate \
+            | sed -e 's/notAfter=//');
+          ssldate=$(date -d "${data}" '+%s');
+          nowdate=$(date '+%s');
+          diff="$((ssldate - nowdate))";
+          echo "$hostname $((diff / 86400))"
+          
+      - name: "Commit ${{ env.filename }}"
+        shell: bash
+        run: |
+          bash --version
+          set -euxo pipefail
+          echo -e "\n\nChecking diff for changes\n\n."
+          if (( $(git diff | wc -l) > 0 )); then
+            git config --global user.name ${{ github.actor }}
+            git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+            git add --all
+            git commit -m "Adding ${{ env.filename }}"
+            git push
+          else
+            echo -e "\nNothing to commit, working tree clean."
+          fi
